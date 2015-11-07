@@ -91,7 +91,7 @@
       </label>
       <label class="selectable">
         <input type="radio" name="sample-text" value="6" />
-        <span>lorem pisum</span>
+        <span>Lorem Ipsum</span>
       </label>
       <label class="selectable">
         <input type="radio" name="sample-text" value="7" />
@@ -200,7 +200,7 @@
         ],
         [
           '「お早う。ペムペルという子はほんとうにいい子だったのにかあいそうなことをした。」',
-          'その時窓にはまだ厚い茶いろのカーテンが引いてありましたので室へやの中はちょうどビール瓶びんのかけらをのぞいたようでした。',
+          'その時窓にはまだ厚い茶いろのカーテンが引いてありましたので室の中はちょうどビール瓶びんのかけらをのぞいたようでした。',
           'ですから私も挨拶あいさつしました。'
         ],
         [ 'いろはにほへと　ちりぬるを',
@@ -224,7 +224,7 @@
           '「この髪を抜いてな、この髪を抜いてな、鬘にしようと思うたのじゃ。」',
           '下人は、老婆の答が存外、平凡なのに失望した。',
           'そうして失望すると同時に、また前の憎悪が、冷やかな侮蔑と一しょに、心の中へはいって来た。',
-          'すると、その気色けしきが、先方へも通じたのであろう。'
+          'すると、その気色が、先方へも通じたのであろう。'
         ],
         [
           'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'
@@ -233,16 +233,24 @@
           '3.1415926535 8979323846 2643383279 5028841971 6939937510 5820974944 5923078164 0628620899 8628034825 3421170679'
         ]
       ];
+      var patternCache = [];
 
       function injectText(text) {
         var targets = document.querySelectorAll('.js-inject');
         for(var i=0; i < targets.length; i++){
-          targets[i].innerText = text;
+          targets[i].innerHTML = text;
         }
       }
 
       function getText(idx) {
-        return patterns[idx].join('');
+        if(patternCache[idx]){ return patternCache[idx]; }
+        var text = '';
+        var pattern = patterns[idx];
+        for(var i = 0; i < pattern.length; i++){
+          text += pattern[i];
+          text += '<br>';
+        }
+        return patternCache[idx] == null && (patternCache[idx] = text)
       }
 
       var fontFamily = document.querySelector('.js-font-family');
